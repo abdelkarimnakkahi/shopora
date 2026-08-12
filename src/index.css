@@ -95,3 +95,17 @@ img {
   width: 45px;
   height: 45px;
 }
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 3rem;
+}
+
+.category-btn {
+  padding: 0.25rem 0.5rem;
+  background: #cecece;
+  border-radius: 0.15rem;
+  border: none;
+}

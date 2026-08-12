@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Loading from "./Loading";
 import Product from "./Product";
+import Categories from "./Categories";
 
 function ProductsList() {
   const apiURL = "https://dummyjson.com/products";
@@ -31,7 +32,9 @@ function ProductsList() {
   return (
     <section className="products-list">
       <div className="container">
+        <Categories />
         <h2>Our Products:</h2>
+
         <div className="products-wrapper">
           {products.map((product) => (
             <Product key={product.id} product={product} isDescription={false} />
