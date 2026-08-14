@@ -4,12 +4,15 @@ import Product from "./Product";
 import Categories from "./Categories";
 
 function ProductsList() {
-  const apiURL = "https://dummyjson.com/products";
+  // const apiURL = "https://dummyjson.com/products";
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const getProducts = async () => {
+  const getProducts = async (category = "") => {
     try {
+      const apiURL = category
+        ? `https://dummyjson.com/products/category/${category}`
+        : "https://dummyjson.com/products";
       const res = await fetch(apiURL);
       if (!res.ok) {
         throw new Error(`HTTP error, status: ${res.status}`);
@@ -32,7 +35,7 @@ function ProductsList() {
   return (
     <section className="products-list">
       <div className="container">
-        <Categories />
+        <Categories getProducts={getProducts} />
         <h2>Our Products:</h2>
 
         <div className="products-wrapper">
