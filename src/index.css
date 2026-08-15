@@ -109,3 +109,19 @@ img {
   border-radius: 0.15rem;
   border: none;
 }
+
+/*  About Us */
+
+.about {
+  padding: 3rem 0;
+}
+
+.about h1,
+.about h2 {
+  margin: 0.75rem 0;
+}
+
+.about ul {
+  list-style-type: square;
+  padding: 1rem 0 1rem 1.5rem;
+}

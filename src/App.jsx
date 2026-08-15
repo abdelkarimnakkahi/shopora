@@ -1,9 +1,14 @@
+import { Route, Routes } from "react-router";
 import ProductsList from "./components/ProductsList";
+import About from "./components/About";
 
 function App() {
   return (
     <>
-      <ProductsList />
+      <Routes>
+        <Route path="/" element={<ProductsList />} />
+        <Route path="about" element={<About />} />
+      </Routes>
     </>
   );
 }
