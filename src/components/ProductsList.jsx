@@ -35,13 +35,18 @@ function ProductsList() {
   return (
     <section className="products-list">
       <div className="container">
-        <Categories getProducts={getProducts} />
         <h2>Our Products:</h2>
-
-        <div className="products-wrapper">
-          {products.map((product) => (
-            <Product key={product.id} product={product} isDescription={false} />
-          ))}
+        <div className="products-content">
+          <Categories getProducts={getProducts} />
+          <div className="products-wrapper">
+            {products.map((product) => (
+              <Product
+                key={product.id}
+                product={product}
+                isDescription={false}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

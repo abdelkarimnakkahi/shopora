@@ -46,11 +46,19 @@ img {
 
 .products-list h2 {
   margin-bottom: 1.5rem;
+  padding-left: 2rem;
+}
+
+.products-list .products-content {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 2rem;
 }
 .products-list .products-wrapper {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
+  align-content: baseline;
 }
 
 .products-list .product-card {
@@ -97,17 +105,29 @@ img {
 }
 
 .categories {
+  background-color: #e8faf4;
+  border-radius: 0.5rem;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 3rem;
+  gap: 2rem;
+  padding: 2rem;
+  height: fit-content;
 }
 
 .category-btn {
-  padding: 0.25rem 0.5rem;
-  background: #cecece;
-  border-radius: 0.15rem;
+  background: none;
+  border-radius: 0.5rem;
   border: none;
+  font-size: 1.3rem;
+  text-transform: capitalize;
+  text-align: left;
+  padding: 0.25rem 0.75rem;
+}
+
+.category-btn:hover {
+  color: #333;
+  background: #fefefe;
 }
 
 /*  About Us */
