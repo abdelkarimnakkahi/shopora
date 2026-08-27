@@ -1,7 +1,8 @@
 import React from "react";
+import { Link } from "react-router";
 
 function Product({ product, isDescription }) {
-  const { title, images, description, price } = product;
+  const { id, title, images, description, price } = product;
   return (
     <div className="product-card">
       <img className="product-image" src={images[0]} alt={title} />
@@ -13,7 +14,9 @@ function Product({ product, isDescription }) {
           currency: "USD",
         }).format(price)}
       </p>
-      <button className="btn btn-details">Details</button>
+      <Link to={`/product/${id}`} className="btn btn-details">
+        Details
+      </Link>
     </div>
   );
 }
