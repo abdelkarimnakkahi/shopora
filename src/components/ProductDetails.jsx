@@ -6,14 +6,12 @@ function ProductDetails() {
   let { productId } = useParams();
   productId = parseInt(productId, 10);
 
-  //   console.log(productId);
-  //   console.log(typeof productId);
-
   const url = "https://dummyjson.com/products/";
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const getProduct = async (id) => {
     try {
@@ -24,6 +22,7 @@ function ProductDetails() {
       const data = await res.json();
 
       setProduct(data);
+      setSelectedImage(data.images[0]);
     } catch (error) {
       console.error("Failed to fetch", error);
       setError(error.message);
@@ -39,30 +38,47 @@ function ProductDetails() {
   if (loading) return <Loading />;
 
   return (
-    <div>
+    <div className="product-details">
       {error ? (
         <p>{error}</p>
       ) : (
-        <div>
-          <img src={product.images[0]} alt={product.title} />
-          <h2>{product.title}</h2> <span>{product.category}</span>
-          <p>{product.description}</p>
-          <span>{product.price}</span>
-          <div className="tags-wrapper">
-            {product.tags.map((tag) => (
-              <span key={tag} className="tag">
-                {tag}
-              </span>
-            ))}
+        <div className="product-wrapper">
+          <div className="product-images">
+            <div className="selected-image">
+              <img src={selectedImage} alt={product.title} />
+            </div>
+            <div className="product-thumbnails">
+              {product.images.map((image) => (
+                <img
+                  key={image}
+                  src={image}
+                  alt={product.title}
+                  onClick={() => setSelectedImage(image)}
+                  className={image === selectedImage ? "active" : ""}
+                />
+              ))}
+            </div>
           </div>
-          <span>{product.brand}</span>
-          <span>{product.rating}/5</span>
-          <span>{product.discountPercentage}% off</span>
-          {product.availabilityStatus === "In Stock" ? (
-            <span> In Stock: {product.stock} available </span>
-          ) : (
-            <span>Out of stock</span>
-          )}
+          <div className="product-content">
+            <h2>{product.title}</h2> <span>{product.category}</span>
+            <p>{product.description}</p>
+            <span>{product.price}</span>
+            <div className="tags-wrapper">
+              {product.tags.map((tag) => (
+                <span key={tag} className="tag">
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <span>{product.brand}</span>
+            <span>{product.rating}/5</span>
+            <span>{product.discountPercentage}% off</span>
+            {product.availabilityStatus === "In Stock" ? (
+              <span> In Stock: {product.stock} available </span>
+            ) : (
+              <span>Out of stock</span>
+            )}
+          </div>
         </div>
       )}
     </div>
