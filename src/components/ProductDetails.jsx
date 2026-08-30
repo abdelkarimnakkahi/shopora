@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import Loading from "./Loading";
 
-function ProductDetails() {
+function ProductDetails({ cart, setCart }) {
   let { productId } = useParams();
   productId = parseInt(productId, 10);
 
@@ -31,6 +31,27 @@ function ProductDetails() {
     }
   };
 
+  const addToCart = (productItem) => {
+    const existingProduct = cart.find(
+      (cartItem) => cartItem.id === productItem.id,
+    );
+
+    if (existingProduct) {
+      const updatedCart = cart.map((cartItem) => {
+        if (cartItem.id === productItem.id) {
+          return { ...cartItem, quantityInCart: cartItem.quantityInCart + 1 };
+        }
+
+        return cartItem;
+      });
+      setCart(updatedCart);
+    } else {
+      setCart([...cart, { ...productItem, quantityInCart: 1 }]);
+      console.log(cart);
+    }
+  };
+  console.log(cart);
+
   useEffect(() => {
     getProduct(productId);
   }, [productId]);
@@ -39,6 +60,7 @@ function ProductDetails() {
 
   return (
     <div className="product-details">
+      {cart.length > 0 ? <h3>{cart.length}</h3> : <h3>No item</h3>}
       {error ? (
         <p>{error}</p>
       ) : (
@@ -78,6 +100,13 @@ function ProductDetails() {
             ) : (
               <span>Out of stock</span>
             )}
+            <button
+              onClick={() => addToCart(product)}
+              disabled={product.stock === 0}
+              className="btn btn-cart"
+            >
+              Add to Cart
+            </button>
           </div>
         </div>
       )}
