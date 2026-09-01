@@ -33,9 +33,14 @@ function Cart({ cart, setCart }) {
     setCart(updatedCart);
   };
 
-  const handleDelete = (id) => {};
+  const handleDelete = (id) => {
+    const updatedCart = cart.filter((cartItem) => cartItem.id != id);
+    setCart(updatedCart);
+  };
 
-  const handleClearAll = () => {};
+  const handleClearAll = () => {
+    setCart([]);
+  };
 
   return (
     <div className="cart">
@@ -76,6 +81,11 @@ function Cart({ cart, setCart }) {
           <p>
             Subtotal {`(${totalQuantityInCart} items) : $ ${totalPriceInCart}`}
           </p>
+        </div>
+        <div className="delete-all">
+          <button onClick={() => handleClearAll()} className="btn">
+            Clear All
+          </button>
         </div>
       </div>
     </div>
