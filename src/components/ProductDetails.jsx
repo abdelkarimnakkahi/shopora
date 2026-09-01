@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import Loading from "./Loading";
 
 function ProductDetails({ cart, setCart }) {
@@ -107,6 +107,9 @@ function ProductDetails({ cart, setCart }) {
             >
               Add to Cart
             </button>
+            <Link to="/cart" className="btn btn-go-to-cart">
+              Go to Cart
+            </Link>
           </div>
         </div>
       )}
