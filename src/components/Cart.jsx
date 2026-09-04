@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 function Cart({ cart, setCart }) {
   // console.log(cart);
 
