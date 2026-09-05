@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Link } from "react-router";
 
 function Cart({ cart, setCart }) {
   // console.log(cart);
@@ -59,13 +60,15 @@ function Cart({ cart, setCart }) {
               <div className="cart-item-buttons">
                 <button
                   onClick={() => handleDecrease(cartItem.id)}
-                  className="btn"
+                  className="btn btn-decrease"
+                  disabled={cartItem.quantityInCart === 1}
                 >
                   -
                 </button>
                 <button
                   onClick={() => handleIncrease(cartItem.id)}
-                  className="btn"
+                  className="btn btn-increase"
+                  disabled={cartItem.quantityInCart === cartItem.stock}
                 >
                   +
                 </button>
@@ -79,16 +82,27 @@ function Cart({ cart, setCart }) {
             </div>
           ))}
         </div>
-        <div className="subtotal">
-          <p>
-            Subtotal {`(${totalQuantityInCart} items) : $ ${totalPriceInCart}`}
-          </p>
-        </div>
-        <div className="delete-all">
-          <button onClick={() => handleClearAll()} className="btn">
-            Clear All
-          </button>
-        </div>
+
+        {cart.length > 0 ? (
+          <>
+            <div className="subtotal">
+              <p>
+                Subtotal
+                {`(${totalQuantityInCart} items) : $ ${totalPriceInCart}`}
+              </p>
+            </div>
+            <div className="delete-all">
+              <button onClick={() => handleClearAll()} className="btn">
+                Clear All
+              </button>
+            </div>
+          </>
+        ) : (
+          <div className="empty-cart">
+            <p>Your cart is empty</p>
+            <Link to={"/"}>Back to shop</Link>
+          </div>
+        )}
       </div>
     </div>
   );

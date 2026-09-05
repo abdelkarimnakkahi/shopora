@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 function Categories({ getProducts }) {
   const [categories, setCategories] = useState();
   const url = "https://dummyjson.com/products/category-list";
-  console.log(getProducts);
 
   useEffect(() => {
     fetch(url)
