@@ -48,36 +48,46 @@ function Cart({ cart, setCart }) {
   return (
     <div className="cart">
       <div className="container">
+        <h2>Shopping Cart:</h2>
         <div className="cart-items">
           {cart.map((cartItem) => (
             <div key={cartItem.id} className="cart-item">
-              <div className="cart-item-details">
-                <img src={cartItem.images[0]} alt={cartItem.title} />
-                <h2>{cartItem.title}</h2>
-                <p>{cartItem.price}</p>
-                <p>Quantity: {cartItem.quantityInCart}</p>
-              </div>
-              <div className="cart-item-buttons">
-                <button
-                  onClick={() => handleDecrease(cartItem.id)}
-                  className="btn btn-decrease"
-                  disabled={cartItem.quantityInCart === 1}
-                >
-                  -
-                </button>
-                <button
-                  onClick={() => handleIncrease(cartItem.id)}
-                  className="btn btn-increase"
-                  disabled={cartItem.quantityInCart === cartItem.stock}
-                >
-                  +
-                </button>
-                <button
-                  onClick={() => handleDelete(cartItem.id)}
-                  className="btn"
-                >
-                  Delete
-                </button>
+              <img src={cartItem.images[0]} alt={cartItem.title} />
+              <div className="cart-item-wrapper">
+                <div className="cart-item-content">
+                  <div className="cart-item-details">
+                    <h3 className="title">{cartItem.title}</h3>
+                    <p className="quantity">
+                      Quantity: {cartItem.quantityInCart}
+                    </p>
+                    <p className="price">${cartItem.price}</p>
+                  </div>
+                  <div className="cart-item-buttons">
+                    <div className="plus-minus-buttons">
+                      <button
+                        onClick={() => handleDecrease(cartItem.id)}
+                        className="btn btn-decrease"
+                        disabled={cartItem.quantityInCart === 1}
+                      >
+                        -
+                      </button>
+                      <hr />
+                      <button
+                        onClick={() => handleIncrease(cartItem.id)}
+                        className="btn btn-increase"
+                        disabled={cartItem.quantityInCart === cartItem.stock}
+                      >
+                        +
+                      </button>
+                    </div>
+                    <button
+                      onClick={() => handleDelete(cartItem.id)}
+                      className="btn btn-delete"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           ))}
@@ -86,13 +96,14 @@ function Cart({ cart, setCart }) {
         {cart.length > 0 ? (
           <>
             <div className="subtotal">
-              <p>
-                Subtotal
-                {`(${totalQuantityInCart} items) : $ ${totalPriceInCart}`}
-              </p>
+              Subtotal {`(${totalQuantityInCart} items)`}
+              <span> {`: $ ${totalPriceInCart}`}</span>
             </div>
             <div className="delete-all">
-              <button onClick={() => handleClearAll()} className="btn">
+              <button
+                onClick={() => handleClearAll()}
+                className="btn btn-clear-cart"
+              >
                 Clear All
               </button>
             </div>

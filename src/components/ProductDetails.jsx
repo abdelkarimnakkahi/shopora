@@ -60,59 +60,77 @@ function ProductDetails({ cart, setCart }) {
 
   return (
     <div className="product-details">
-      {cart.length > 0 ? <h3>{cart.length}</h3> : <h3>No item</h3>}
-      {error ? (
-        <p>{error}</p>
-      ) : (
-        <div className="product-wrapper">
-          <div className="product-images">
-            <div className="selected-image">
-              <img src={selectedImage} alt={product.title} />
+      <div className="container">
+        {error ? (
+          <p>{error}</p>
+        ) : (
+          <div className="product-wrapper">
+            <div className="product-images">
+              <div className="selected-image">
+                <img src={selectedImage} alt={product.title} />
+              </div>
+              <div className="product-thumbnails">
+                {product.images.map((image) => (
+                  <img
+                    key={image}
+                    src={image}
+                    alt={product.title}
+                    onClick={() => setSelectedImage(image)}
+                    className={image === selectedImage ? "active" : ""}
+                  />
+                ))}
+              </div>
             </div>
-            <div className="product-thumbnails">
-              {product.images.map((image) => (
-                <img
-                  key={image}
-                  src={image}
-                  alt={product.title}
-                  onClick={() => setSelectedImage(image)}
-                  className={image === selectedImage ? "active" : ""}
-                />
-              ))}
-            </div>
-          </div>
-          <div className="product-content">
-            <h2>{product.title}</h2> <span>{product.category}</span>
-            <p>{product.description}</p>
-            <span>{product.price}</span>
-            <div className="tags-wrapper">
-              {product.tags.map((tag) => (
-                <span key={tag} className="tag">
-                  {tag}
+            <div className="product-content">
+              <h2 className="title">{product.title}</h2>{" "}
+              <span className="category">{product.category}</span>
+              <p className="description">{product.description}</p>
+              <span className="price">{product.price}</span>
+              <div className="tags-wrapper">
+                <p className="tags-title">Tags:</p>
+                {product.tags.map((tag) => (
+                  <span key={tag} className="tag">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <hr />
+              <span className="brand">
+                <b>Brand: </b>
+                {product.brand}
+              </span>
+              <span className="rating">
+                <b>Rating: </b>
+                {product.rating}/5
+              </span>
+              <span className="discount">
+                <b>Discount: </b>
+                {product.discountPercentage}% off
+              </span>
+              {product.availabilityStatus === "In Stock" ||
+              product.availabilityStatus === "Low Stock" ? (
+                <span className="stock">
+                  <b>In Stock: </b> {product.stock} available
                 </span>
-              ))}
+              ) : (
+                <span className="stock">
+                  <b>Out of stock</b>
+                </span>
+              )}
+              <button
+                onClick={() => addToCart(product)}
+                disabled={product.stock === 0}
+                className="btn btn-add-cart"
+              >
+                Add to Cart
+              </button>
+              <Link to="/cart" className="btn btn-go-cart">
+                Go to Cart
+              </Link>
             </div>
-            <span>{product.brand}</span>
-            <span>{product.rating}/5</span>
-            <span>{product.discountPercentage}% off</span>
-            {product.availabilityStatus === "In Stock" ? (
-              <span> In Stock: {product.stock} available </span>
-            ) : (
-              <span>Out of stock</span>
-            )}
-            <button
-              onClick={() => addToCart(product)}
-              disabled={product.stock === 0}
-              className="btn btn-cart"
-            >
-              Add to Cart
-            </button>
-            <Link to="/cart" className="btn btn-go-to-cart">
-              Go to Cart
-            </Link>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
