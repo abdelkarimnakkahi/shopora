@@ -4,6 +4,7 @@ import About from "./components/About";
 import ProductDetails from "./components/ProductDetails";
 import { useEffect, useState } from "react";
 import Cart from "./components/Cart";
+import Navbar from "./components/Navbar";
 
 function App() {
   const cartStorage = JSON.parse(localStorage.getItem("cart"));

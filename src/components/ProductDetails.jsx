@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import Loading from "./Loading";
+import Navbar from "./Navbar";
 
 function ProductDetails({ cart, setCart }) {
   let { productId } = useParams();
@@ -59,79 +60,82 @@ function ProductDetails({ cart, setCart }) {
   if (loading) return <Loading />;
 
   return (
-    <div className="product-details">
-      <div className="container">
-        {error ? (
-          <p>{error}</p>
-        ) : (
-          <div className="product-wrapper">
-            <div className="product-images">
-              <div className="selected-image">
-                <img src={selectedImage} alt={product.title} />
+    <>
+      <Navbar />
+      <div className="product-details">
+        <div className="container">
+          {error ? (
+            <p>{error}</p>
+          ) : (
+            <div className="product-wrapper">
+              <div className="product-images">
+                <div className="selected-image">
+                  <img src={selectedImage} alt={product.title} />
+                </div>
+                <div className="product-thumbnails">
+                  {product.images.map((image) => (
+                    <img
+                      key={image}
+                      src={image}
+                      alt={product.title}
+                      onClick={() => setSelectedImage(image)}
+                      className={image === selectedImage ? "active" : ""}
+                    />
+                  ))}
+                </div>
               </div>
-              <div className="product-thumbnails">
-                {product.images.map((image) => (
-                  <img
-                    key={image}
-                    src={image}
-                    alt={product.title}
-                    onClick={() => setSelectedImage(image)}
-                    className={image === selectedImage ? "active" : ""}
-                  />
-                ))}
-              </div>
-            </div>
-            <div className="product-content">
-              <h2 className="title">{product.title}</h2>{" "}
-              <span className="category">{product.category}</span>
-              <p className="description">{product.description}</p>
-              <span className="price">{product.price}</span>
-              <div className="tags-wrapper">
-                <p className="tags-title">Tags:</p>
-                {product.tags.map((tag) => (
-                  <span key={tag} className="tag">
-                    {tag}
+              <div className="product-content">
+                <h2 className="title">{product.title}</h2>{" "}
+                <span className="category">{product.category}</span>
+                <p className="description">{product.description}</p>
+                <span className="price">{product.price}</span>
+                <div className="tags-wrapper">
+                  <p className="tags-title">Tags:</p>
+                  {product.tags.map((tag) => (
+                    <span key={tag} className="tag">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <hr />
+                <span className="brand">
+                  <b>Brand: </b>
+                  {product.brand}
+                </span>
+                <span className="rating">
+                  <b>Rating: </b>
+                  {product.rating}/5
+                </span>
+                <span className="discount">
+                  <b>Discount: </b>
+                  {product.discountPercentage}% off
+                </span>
+                {product.availabilityStatus === "In Stock" ||
+                product.availabilityStatus === "Low Stock" ? (
+                  <span className="stock">
+                    <b>In Stock: </b> {product.stock} available
                   </span>
-                ))}
+                ) : (
+                  <span className="stock">
+                    <b>Out of stock</b>
+                  </span>
+                )}
+                <button
+                  onClick={() => addToCart(product)}
+                  disabled={product.stock === 0}
+                  className="btn btn-add-cart"
+                >
+                  Add to Cart
+                </button>
+                <Link to="/cart" className="btn btn-go-cart">
+                  Go to Cart
+                </Link>
               </div>
-              <hr />
-              <span className="brand">
-                <b>Brand: </b>
-                {product.brand}
-              </span>
-              <span className="rating">
-                <b>Rating: </b>
-                {product.rating}/5
-              </span>
-              <span className="discount">
-                <b>Discount: </b>
-                {product.discountPercentage}% off
-              </span>
-              {product.availabilityStatus === "In Stock" ||
-              product.availabilityStatus === "Low Stock" ? (
-                <span className="stock">
-                  <b>In Stock: </b> {product.stock} available
-                </span>
-              ) : (
-                <span className="stock">
-                  <b>Out of stock</b>
-                </span>
-              )}
-              <button
-                onClick={() => addToCart(product)}
-                disabled={product.stock === 0}
-                className="btn btn-add-cart"
-              >
-                Add to Cart
-              </button>
-              <Link to="/cart" className="btn btn-go-cart">
-                Go to Cart
-              </Link>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
