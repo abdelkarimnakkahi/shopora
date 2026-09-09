@@ -1,19 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Loading from "./Loading";
 import Product from "./Product";
 import Categories from "./Categories";
 import Navbar from "./Navbar";
+import { SearchContext } from "./SearchContext";
 
 function ProductsList() {
   // const apiURL = "https://dummyjson.com/products";
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const getProducts = async (category = "") => {
+  const { searchQuery } = useContext(SearchContext);
+
+  const getProducts = async (category = "", query = "") => {
     try {
       const apiURL = category
         ? `https://dummyjson.com/products/category/${category}`
-        : "https://dummyjson.com/products";
+        : query
+          ? `https://dummyjson.com/products/search?q=${query}`
+          : "https://dummyjson.com/products";
       const res = await fetch(apiURL);
       if (!res.ok) {
         throw new Error(`HTTP error, status: ${res.status}`);
@@ -28,8 +33,8 @@ function ProductsList() {
   };
 
   useEffect(() => {
-    getProducts();
-  }, []);
+    getProducts("", searchQuery);
+  }, [searchQuery]);
 
   if (isLoading) return <Loading />;
 
