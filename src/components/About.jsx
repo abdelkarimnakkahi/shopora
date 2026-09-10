@@ -10,7 +10,7 @@ function About() {
           <p>About This Project</p>
           <h1>A Simple, Modern E-commerce Experience</h1>
           <p>
-            Welcome to <strong>E-comBasic</strong>, a modern e-commerce frontend
+            Welcome to <strong>Shopora</strong>, a modern e-commerce frontend
             built with React.
           </p>
 

@@ -7,7 +7,7 @@ function Navbar({ hasSearch }) {
     <nav>
       <div className="container">
         <div className="logo">
-          <span>Ecom</span>
+          <span>Shopora</span>
         </div>
         <ul className="links">
           <li>
