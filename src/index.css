@@ -178,6 +178,19 @@ img {
   .products-wrapper {
     grid-template-columns: repeat(auto-fit, minmax(225px, 1fr)) !important;
   }
+
+  .product-details .product-wrapper {
+    grid-template-columns: 1fr !important;
+  }
+
+  .selected-image {
+    width: 350px !important;
+    height: 350px !important;
+  }
+
+  .product-thumbnails {
+    width: 200px;
+  }
 }
 
 /*  About Us */
