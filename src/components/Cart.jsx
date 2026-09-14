@@ -100,7 +100,7 @@ function Cart({ cart, setCart }) {
             <>
               <div className="subtotal">
                 Subtotal {`(${totalQuantityInCart} items)`}
-                <span> {`: $ ${totalPriceInCart}`}</span>
+                <span> {`: $ ${totalPriceInCart.toFixed(2)}`}</span>
               </div>
               <div className="delete-all">
                 <button
