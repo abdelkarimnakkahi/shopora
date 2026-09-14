@@ -6,22 +6,26 @@ function Navbar({ hasSearch }) {
   return (
     <nav>
       <div className="container">
-        <div className="logo">
-          <span>Shopora</span>
+        <div className="left-nav">
+          <div className="logo">
+            <span>Shopora</span>
+          </div>
+          <ul className="links">
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
+          </ul>
         </div>
-        <ul className="links">
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-        </ul>
-        {hasSearch && <Search />}
-        <div className="cart-shopping">
-          <Link to={"/cart"}>
-            <img src={cartLogo} alt="Cart Logo" />
-          </Link>
+        <div className="right-nav">
+          {hasSearch && <Search />}
+          <div className="cart-shopping">
+            <Link to={"/cart"}>
+              <img src={cartLogo} alt="Cart Logo" />
+            </Link>
+          </div>
         </div>
       </div>
     </nav>
