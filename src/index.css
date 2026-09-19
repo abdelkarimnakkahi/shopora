@@ -411,10 +411,35 @@ nav .container,
   flex-shrink: 0;
 }
 
-.cart-shopping img {
-  width: 100%;
-  height: 100%;
+.cart-link {
+  display: block;
+  position: relative;
+  background: red;
+}
+
+.cart-link img {
+  width: 35px;
+  height: 35px;
   filter: invert(100%);
+  z-index: 1;
+  position: absolute;
+}
+
+.cart-link .total-items {
+  background: #fed813;
+  padding: 0.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: -0.5rem;
+  border-radius: 50%;
+  z-index: 0;
+  font-size: small;
+  font-weight: bold;
+  transform: translateX(25%);
 }
 
 /* Mediaquery for ProductsList + Nav */
