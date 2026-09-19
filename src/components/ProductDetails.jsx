@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import Loading from "./Loading";
 import Navbar from "./Navbar";
+import { CartQuantityContext } from "./CartQuantityContext";
 
-function ProductDetails({ cart, setCart }) {
+function ProductDetails() {
+  const { cart, setCart } = useContext(CartQuantityContext);
   let { productId } = useParams();
   productId = parseInt(productId, 10);
 

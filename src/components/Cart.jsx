@@ -1,10 +1,10 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router";
 import Navbar from "./Navbar";
+import { CartQuantityContext } from "./CartQuantityContext";
 
-function Cart({ cart, setCart }) {
-  // console.log(cart);
-
+function Cart() {
+  const { cart, setCart } = useContext(CartQuantityContext);
   const totalQuantityInCart = cart.reduce(
     (total, item) => total + item.quantityInCart,
     0,
