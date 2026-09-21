@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import { Link } from "react-router";
 import Navbar from "./Navbar";
 import { CartQuantityContext } from "./CartQuantityContext";
+import { toast } from "react-toastify";
 
 function Cart() {
   const { cart, setCart } = useContext(CartQuantityContext);
@@ -40,11 +41,16 @@ function Cart() {
   const handleDelete = (id) => {
     const updatedCart = cart.filter((cartItem) => cartItem.id != id);
     setCart(updatedCart);
+    notifyRemove();
   };
 
   const handleClearAll = () => {
     setCart([]);
+    notifyClear();
   };
+
+  const notifyRemove = () => toast.warn("Product removed from cart!");
+  const notifyClear = () => toast.warn("Cart cleared successfully!");
 
   return (
     <>

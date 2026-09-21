@@ -1,11 +1,14 @@
 import React, { useContext } from "react";
 import { Link } from "react-router";
 import { CartQuantityContext } from "./CartQuantityContext";
+import { toast } from "react-toastify";
 
 function Product({ product, isDescription }) {
   const { id, title, images, description, price } = product;
 
   const { cart, setCart } = useContext(CartQuantityContext);
+
+  const notifyAdd = () => toast.success("Product added to cart!");
 
   const addToCart = (productItem) => {
     const existingProduct = cart.find(
@@ -24,6 +27,7 @@ function Product({ product, isDescription }) {
     } else {
       setCart([...cart, { ...productItem, quantityInCart: 1 }]);
     }
+    notifyAdd();
   };
 
   return (

@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router";
 import Loading from "./Loading";
 import Navbar from "./Navbar";
 import { CartQuantityContext } from "./CartQuantityContext";
+import { toast } from "react-toastify";
 
 function ProductDetails() {
   const { cart, setCart } = useContext(CartQuantityContext);
@@ -52,8 +53,10 @@ function ProductDetails() {
       setCart([...cart, { ...productItem, quantityInCart: 1 }]);
       console.log(cart);
     }
+    notifyAdd();
   };
-  // console.log(cart);
+
+  const notifyAdd = () => toast("Product added to cart!");
 
   useEffect(() => {
     getProduct(productId);

@@ -7,10 +7,16 @@ import Cart from "./components/Cart";
 import Navbar from "./components/Navbar";
 import SearchProvider from "./components/SearchContext";
 import CartQuantityProvider from "./components/CartQuantityContext";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        progressStyle={{ background: "purple" }}
+      />
       <SearchProvider>
         <CartQuantityProvider>
           <Routes>
