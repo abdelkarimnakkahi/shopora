@@ -1,8 +1,31 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router";
+import { CartQuantityContext } from "./CartQuantityContext";
 
 function Product({ product, isDescription }) {
   const { id, title, images, description, price } = product;
+
+  const { cart, setCart } = useContext(CartQuantityContext);
+
+  const addToCart = (productItem) => {
+    const existingProduct = cart.find(
+      (cartItem) => cartItem.id === productItem.id,
+    );
+
+    if (existingProduct) {
+      const updatedCart = cart.map((cartItem) => {
+        if (cartItem.id === productItem.id) {
+          return { ...cartItem, quantityInCart: cartItem.quantityInCart + 1 };
+        }
+
+        return cartItem;
+      });
+      setCart(updatedCart);
+    } else {
+      setCart([...cart, { ...productItem, quantityInCart: 1 }]);
+    }
+  };
+
   return (
     <div className="product-card">
       <img className="product-image" src={images[0]} alt={title} />
@@ -14,9 +37,18 @@ function Product({ product, isDescription }) {
           currency: "USD",
         }).format(price)}
       </p>
-      <Link to={`/product/${id}`} className="btn btn-details">
-        Details
-      </Link>
+      <div className="buttons-wrapper">
+        <Link to={`/product/${id}`} className="btn btn-details">
+          Details
+        </Link>
+        <button
+          onClick={() => addToCart(product)}
+          disabled={product.stock === 0}
+          className="btn btn-add-cart"
+        >
+          Add to Cart
+        </button>
+      </div>
     </div>
   );
 }

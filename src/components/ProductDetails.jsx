@@ -53,7 +53,7 @@ function ProductDetails() {
       console.log(cart);
     }
   };
-  console.log(cart);
+  // console.log(cart);
 
   useEffect(() => {
     getProduct(productId);
