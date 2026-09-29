@@ -9,22 +9,31 @@ function ProductsList() {
   // const apiURL = "https://dummyjson.com/products";
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [category, setCategory] = useState("");
+
+  const [totalProducts, setTotalProducts] = useState(0);
+
+  const limit = 12;
+  const [skip, setSkip] = useState(0);
+  const totalPages = Math.ceil(totalProducts / limit);
+  const currentPage = skip / limit + 1;
 
   const { searchQuery } = useContext(SearchContext);
 
   const getProducts = async (category = "", query = "") => {
     try {
       const apiURL = category
-        ? `https://dummyjson.com/products/category/${category}`
+        ? `https://dummyjson.com/products/category/${category}?limit=${limit}&skip=${skip}`
         : query
-          ? `https://dummyjson.com/products/search?q=${query}`
-          : "https://dummyjson.com/products";
+          ? `https://dummyjson.com/products/search?q=${query}&limit=${limit}&skip=${skip}`
+          : `https://dummyjson.com/products?limit=${limit}&skip=${skip}`;
       const res = await fetch(apiURL);
       if (!res.ok) {
         throw new Error(`HTTP error, status: ${res.status}`);
       }
       const data = await res.json();
       setProducts(data.products);
+      setTotalProducts(data.total);
     } catch (error) {
       console.error("Failed to fetch", error);
     } finally {
@@ -32,9 +41,21 @@ function ProductsList() {
     }
   };
 
+  const handlePrevious = () => {
+    if (skip > 0) {
+      setSkip((prev) => prev - limit);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      setSkip((prev) => prev + limit);
+    }
+  };
+
   useEffect(() => {
-    getProducts("", searchQuery);
-  }, [searchQuery]);
+    getProducts(category, searchQuery);
+  }, [searchQuery, skip, category]);
 
   if (isLoading) return <Loading />;
 
@@ -54,6 +75,17 @@ function ProductsList() {
                   isDescription={false}
                 />
               ))}
+              <div className="pagination">
+                <button onClick={handlePrevious} disabled={currentPage === 1}>
+                  {"<"}
+                </button>
+                <button
+                  onClick={handleNext}
+                  disabled={currentPage === totalPages}
+                >
+                  {">"}
+                </button>
+              </div>
             </div>
           </div>
         </div>
