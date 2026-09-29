@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-function Categories({ getProducts }) {
+function Categories({ setCategory, setSkip }) {
   const [categories, setCategories] = useState();
   const url = "https://dummyjson.com/products/category-list";
 
@@ -16,7 +16,10 @@ function Categories({ getProducts }) {
           <button
             key={category}
             className="category-btn"
-            onClick={() => getProducts(category)}
+            onClick={() => {
+              setCategory(category);
+              setSkip(0);
+            }}
           >
             {category}
           </button>

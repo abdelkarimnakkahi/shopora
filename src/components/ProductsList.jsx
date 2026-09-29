@@ -66,7 +66,11 @@ function ProductsList() {
         <div className="container">
           <h2>Our Products:</h2>
           <div className="products-content">
-            <Categories getProducts={getProducts} />
+            <Categories
+              getProducts={getProducts}
+              setCategory={setCategory}
+              setSkip={setSkip}
+            />
             <div className="products-wrapper">
               {products.map((product) => (
                 <Product
