@@ -83,6 +83,7 @@ function ProductsList() {
                 <button onClick={handlePrevious} disabled={currentPage === 1}>
                   {"<"}
                 </button>
+                <button className="current-page">{currentPage}</button>
                 <button
                   onClick={handleNext}
                   disabled={currentPage === totalPages}

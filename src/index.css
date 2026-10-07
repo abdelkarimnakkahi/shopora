@@ -133,8 +133,18 @@ img {
   transition: background 250ms ease-in-out;
 }
 
-.pagination button:hover {
+.pagination button:not(:disabled):hover {
   background: #333838;
+}
+
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pagination .current-page,
+.pagination button.current-page:hover {
+  background: orangered;
 }
 
 .loading {
